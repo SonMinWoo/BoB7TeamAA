@@ -58,8 +58,9 @@ def get_api_info(PATH):
 
 
 p = {}
-path = input("input path : ")
-p = get_api_info("/home/a/"+path)
+#path = input("input path : ")
+path = "C:\\Users\\SonMinWoo\\Desktop\\KU-Android-pre-train\\1-malware"
+p = get_api_info(path)
 #f = open('malicious_api.csv','w',encoding='utf-8',newline='')
 
 label_list = []
@@ -70,9 +71,4 @@ for i in p.keys():
 	bilabel.append(i)
 raw = {"filename":list(p.keys()),"binary_label":bilabel}
 csvdata = pd.DataFrame(p)
-csvdata.to_csv(path+"_apis.csv",sep=',')
-"""
-squareform(res)
-frame = pd.DataFrame(list_result)
-frame.to_csv('real_malware_list_all.csv', sep=',')
-"""
+csvdata.to_csv("mal_apis.csv",sep=',')
