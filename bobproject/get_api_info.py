@@ -23,37 +23,31 @@ def get_api_info(PATH):
             temp_dict[name]= temp_list
 
         try:
-            fp = open(PATH+"/"+filename+"/"+'classes.dex','rb')
+            f = open(PATH+"/"+filename+"/"+'classes.dex','rb')
         except IOError as e:
             result[filename] = [-1 for i in range(78)]
             continue
-        mm = fp.read()
-        fp.close()
+        mm = f.read()
+        f.close()
         hdr = header(mm)
 
         string_ids = string_id_list(mm, hdr)
         type_ids = type_id_list(mm, hdr)
         method_ids = method_id_list(mm, hdr)
 
-#        print(filename)
-        list_api = []
+        apilist = []
         for i in range(len(method_ids)):
             (class_idx, proto_idx, name_idx) = method_ids[i]
             class_str = string_ids[type_ids[class_idx]]
             name_str = string_ids[name_idx]
-            list_api.append([class_str[1:], name_str])
+            apilist.append([class_str[1:], name_str])
             prt_api[class_str[1:]] = name_str.lower()
 #            print('[file : %s, class : %s, name : %s, method : %s]' % (filename, class_str[1:], name_str,method_ids[i]))
             for i in suspicious_api_dict:
                 if class_str[1:].lower().find(i.encode('utf-8')) != -1:
-#                    print("found", class_str[1:], i.encode())
                     if 'NONE' in suspicious_api_dict[i]:
-#                        print('NONE')
-#                        print("front back:",i, 'NONE')
                         temp_dict[i][suspicious_api_dict[i].index('NONE')]=1
                     if name_str.lower().decode('utf-8', errors = "ignore") in suspicious_api_dict[i]:
-#                        print("front back:",i, name_str)
-#                        print(suspicious_api_dict[i].index(name_str.lower()))
                         temp_dict[i][suspicious_api_dict[i].index(name_str.lower().decode('utf-8'))]=1
 
         all_list = []
@@ -64,19 +58,21 @@ def get_api_info(PATH):
 
 
 p = {}
-p = get_api_info("C:\\Users\\SonMinWoo\\Desktop\\KU-Android-pre-train\\full")
-f = open('malware_api_listtest.csv','w',encoding='utf-8',newline='')
-wr = csv.writer(f)
-for i in p:
-    print("apk name : {} \n{}\n\n".format(i,p.get(i)))
-    wr.writerow("{} {}".format(i,p.get(i)))
-f.close()
-wr.to_csv('malware.csv',sep=',')
+path = input("input path : ")
+p = get_api_info("/home/a/"+path)
+#f = open('malicious_api.csv','w',encoding='utf-8',newline='')
+
+label_list = []
+for i in suspicious_api_dict:
+	label_list.append(i)
+bilabel = []
+for i in p.keys():
+	bilabel.append(i)
+raw = {"filename":list(p.keys()),"binary_label":bilabel}
+csvdata = pd.DataFrame(p)
+csvdata.to_csv(path+"_apis.csv",sep=',')
 """
 squareform(res)
-distance = pd.DataFrame(squareform(res),index=df.index,columns=df.index)
-print(distance)
-distance.to_csv('jaccard_distance_all.csv')
 frame = pd.DataFrame(list_result)
 frame.to_csv('real_malware_list_all.csv', sep=',')
 """
