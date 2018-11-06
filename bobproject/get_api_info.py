@@ -4,8 +4,6 @@ from parse_dex import *
 import csv
 import pandas as pd
 import itertools
-from scipy.spatial.distance import squareform
-from scipy.spatial.distance import pdist, jaccard
 
 def get_api_info(PATH):
     count = 0
@@ -59,16 +57,9 @@ def get_api_info(PATH):
 
 p = {}
 #path = input("input path : ")
-path = "C:\\Users\\SonMinWoo\\Desktop\\KU-Android-pre-train\\1-malware"
+path = "C:\\Users\\SonMinWoo\\Desktop\\KU-Android-pre-train\\11"
 p = get_api_info(path)
 #f = open('malicious_api.csv','w',encoding='utf-8',newline='')
 
-label_list = []
-for i in suspicious_api_dict:
-	label_list.append(i)
-bilabel = []
-for i in p.keys():
-	bilabel.append(i)
-raw = {"filename":list(p.keys()),"binary_label":bilabel}
 csvdata = pd.DataFrame(p)
-csvdata.to_csv("mal_apis.csv",sep=',')
+csvdata.to_csv("normal_apis.csv",sep=',')

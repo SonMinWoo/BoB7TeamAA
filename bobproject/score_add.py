@@ -25,7 +25,7 @@ for i in mal_appname_list:
 		mal_err.append(i)
 for i in range(78):
 	mal_score[i] = mal_score[i] / 78.0
-
+"""
 nor_appname_list = list(norp.columns)
 nor_err = []
 nor_score = []
@@ -93,3 +93,4 @@ new_nor["label"] = nor_val
 
 score_data = pd.concat([new_mal, new_nor])
 score_data.to_csv("api_scores.csv",sep=",")
+"""
