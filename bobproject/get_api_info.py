@@ -15,9 +15,9 @@ def get_api_info(PATH):
         print(count)
         temp_dict = {}
 
-        for i in suspicious_api_dict:
+        for i in maluse_api:
             name = i
-            temp_list = [0 for i in range(len(suspicious_api_dict[i]))]
+            temp_list = [0 for i in range(len(maluse_api[i]))]
             temp_dict[name]= temp_list
 
         try:
@@ -41,12 +41,12 @@ def get_api_info(PATH):
             apilist.append([class_str[1:], name_str])
             prt_api[class_str[1:]] = name_str.lower()
 #            print('[file : %s, class : %s, name : %s, method : %s]' % (filename, class_str[1:], name_str,method_ids[i]))
-            for i in suspicious_api_dict:
+            for i in maluse:
                 if class_str[1:].lower().find(i.encode('utf-8')) != -1:
-                    if 'NONE' in suspicious_api_dict[i]:
-                        temp_dict[i][suspicious_api_dict[i].index('NONE')]=1
-                    if name_str.lower().decode('utf-8', errors = "ignore") in suspicious_api_dict[i]:
-                        temp_dict[i][suspicious_api_dict[i].index(name_str.lower().decode('utf-8'))]=1
+                    if 'NONE' in maluse[i]:
+                        temp_dict[i][maluse[i].index('NONE')]=1
+                    if name_str.lower().decode('utf-8', errors = "ignore") in maluse[i]:
+                        temp_dict[i][maluse[i].index(name_str.lower().decode('utf-8'))]=1
 
         all_list = []
         for i in temp_dict:

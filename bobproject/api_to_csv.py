@@ -5,9 +5,9 @@ import pandas as pd
 
 
 label_list = []
-for i in suspicious_api_dict:
+for i in maluse_api:
 	for j in i
-		label_list.append("class : %s method : %s"%(i,suspicious_api_dict[i]) )
+		label_list.append("class : %s method : %s"%(i,maluse_api[i]) )
 api_list = {"api name":label_list}
 csvapi = pd.DataFrame(api_list)
 csvapi.to_csv("name of api.csv",sep=',')
