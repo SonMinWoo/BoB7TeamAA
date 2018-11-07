@@ -101,15 +101,3 @@ def type_id_list(mm, hdr):
         type_list.append(idx)
 
     return type_list
-
-suspicious_api_list = [['telephonymanager','getsubscriberid'], ['packagemanager','getinstalledpackages'],
-                       ['smsmanager','getdefault'], ['app/service','ondestroy'], ['smsmanager','sendtextmessage'],
-                        ['content/context','startservice'], ['lang/process','waitfor'], ['net/networkinfo','getextrainfo'],
-                        ['lang/process','getoutputstream'], ['telephonymanager','getline1number'], ['lang/runtime','exec'],
-                        ['telephonymanager','getsimserialnumber'], ['telephonymanager','getdeviceid'],
-                        ['content/pm/applicationinfo','loadlabel'], ['util/timer','killprocess'],
-                        ['telephonymanager','getcelllocation'],['util/timer','<init>'],['util/timertask', '<init>']]
-
-get_info_list = ['getdeviceid', 'getsubscriverid', 'openfileoutput', 'openfileinput', 'iswifienabled', 'getlatitute',
-                 'getlongitude', 'getcontentresolver', 'getmessagebody', 'setlatesteventinfo', 'getinstalledapplications',
-                 'build$version.release', 'build.model', 'openconnection', 'setrequestmethod', 'sendtextmessage']

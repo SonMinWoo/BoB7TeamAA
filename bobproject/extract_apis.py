@@ -1,11 +1,11 @@
 import os
-from api_dict import *
-from parse_dex import *
+from dictionary_api import *
+from class_parse import *
 import csv
 import pandas as pd
 import itertools
 
-def get_api_info(PATH):
+def extract_apis(PATH):
     count = 0
     result = {}
     filenames = os.listdir(PATH)
@@ -58,7 +58,7 @@ def get_api_info(PATH):
 p = {}
 #path = input("input path : ")
 path = "C:\\Users\\SonMinWoo\\Desktop\\KU-Android-pre-train\\11"
-p = get_api_info(path)
+p = extract_apis(path)
 #f = open('malicious_api.csv','w',encoding='utf-8',newline='')
 
 csvdata = pd.DataFrame(p)
