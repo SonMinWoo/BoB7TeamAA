@@ -5,10 +5,19 @@ import csv
 import pandas as pd
 import itertools
 
+api_list = []
+
+
 def extract_apis(PATH):
     count = 0
     result = {}
     filenames = os.listdir(PATH)
+    for i in maluse_api:
+        clas = i
+        a = maluse_api[i]
+        for j in range(len(a)):
+            api_list.append(clas+" "+a[j])
+
     prt_api = {}
     for filename in filenames:
         count = count+1
@@ -23,7 +32,7 @@ def extract_apis(PATH):
         try:
             f = open(PATH+"/"+filename+"/"+'classes.dex','rb')
         except IOError as e:
-            result[filename] = [-1 for i in range(78)]
+            result[filename] = [-1 for i in range(77)]
             continue
         mm = f.read()
         f.close()
@@ -41,12 +50,12 @@ def extract_apis(PATH):
             apilist.append([class_str[1:], name_str])
             prt_api[class_str[1:]] = name_str.lower()
 #            print('[file : %s, class : %s, name : %s, method : %s]' % (filename, class_str[1:], name_str,method_ids[i]))
-            for i in maluse:
+            for i in maluse_api:
                 if class_str[1:].lower().find(i.encode('utf-8')) != -1:
-                    if 'NONE' in maluse[i]:
-                        temp_dict[i][maluse[i].index('NONE')]=1
-                    if name_str.lower().decode('utf-8', errors = "ignore") in maluse[i]:
-                        temp_dict[i][maluse[i].index(name_str.lower().decode('utf-8'))]=1
+                    if 'NONE' in maluse_api[i]:
+                        temp_dict[i][maluse_api[i].index('NONE')]=1
+                    if name_str.lower().decode('utf-8', errors = "ignore") in maluse_api[i]:
+                        temp_dict[i][maluse_api[i].index(name_str.lower().decode('utf-8'))]=1
 
         all_list = []
         for i in temp_dict:
@@ -57,9 +66,10 @@ def extract_apis(PATH):
 
 p = {}
 #path = input("input path : ")
-path = "C:\\Users\\SonMinWoo\\Desktop\\KU-Android-pre-train\\11"
+path = "D:\\2nd_dataset\\2nd_dataset"
+"""C:\\Users\\SonMinWoo\\Desktop\\1st_dataset"""
 p = extract_apis(path)
 #f = open('malicious_api.csv','w',encoding='utf-8',newline='')
-
-csvdata = pd.DataFrame(p)
-csvdata.to_csv("normal_apis.csv",sep=',')
+csvdata = pd.DataFrame(p, index=api_list)
+csvdata = csvdata.T
+csvdata.to_csv("secondnew_apis.csv",sep=',')

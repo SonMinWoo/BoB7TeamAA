@@ -1,4 +1,4 @@
-maluse_api = {'telephonymanager': ['getsubscriberid','getline1number','getnetworkoperator','getsimoperatorname','getsimoperatorname','getsimserialnumber','getcallstate'],
+maluse_api = {'telephonymanager': ['getsubscriberid','getline1number','getnetworkoperator','getsimoperatorname','getsimserialnumber','getcallstate'],
                        'uuid':['tostring'],
                       'wifiinfo':['getmacaddress'],
                       'wifimanager':['getconnectioninfo','getwifistate'],
